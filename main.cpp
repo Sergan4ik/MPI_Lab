@@ -14,7 +14,6 @@ int main(int argc, char** argv) {
         n = 20;
 
 
-    int *original_array = (int*)malloc(n * sizeof(int));
 
     int c;
     srand(time(NULL));
@@ -26,9 +25,11 @@ int main(int argc, char** argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
+    int* original_array = NULL;
     int size = n/world_size;
 
     if (world_rank == 0) {
+        original_array = (int*)malloc(n * sizeof(int));
         for (c = 0; c < n; c++) {
             original_array[c] = rand() % n;
         }
